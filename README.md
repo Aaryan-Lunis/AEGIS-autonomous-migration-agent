@@ -1,192 +1,180 @@
-🛡️ AEGIS — Autonomous Migration Agent for Headless Commerce
+# AEGIS — Autonomous Migration Agent for Headless Commerce
 
-AEGIS is an agentic AI system designed to detect, reason about, and mitigate real production failures during headless e-commerce migrations.
+AEGIS is an autonomous operational agent built to **identify, explain, and mitigate real production issues** that occur during headless e-commerce migrations.
 
-Unlike chatbots or traditional monitoring tools, AEGIS operates as an autonomous operational agent that continuously runs a closed-loop decision cycle:
+Instead of acting as a chatbot or a passive monitoring tool, AEGIS behaves like a **decision-making system** that continuously evaluates system signals, forms hypotheses, and recommends safe actions — all while keeping humans in control.
 
-observe → reason → decide → act → reflect
+---
 
-AEGIS is built for real-world systems, with human-in-the-loop safety, explainable reasoning, and production-aligned constraints.
+## Why This Project Exists
 
-🚨 Problem Context
+Modern commerce teams are moving toward headless architectures using frameworks like React and Next.js. While this improves flexibility, it also introduces **new classes of failures** that are difficult to detect early:
 
-Headless migrations (e.g., moving to React / Next.js frontends) often introduce silent and hard-to-diagnose failures, such as:
+- Webhooks failing due to raw body vs parsed JSON mismatches  
+- Checkout errors triggered by secret misconfiguration  
+- Silent failures during key rotation  
+- Support tickets surfacing only after revenue impact  
+- Engineers manually correlating logs, tickets, and docs under pressure  
 
-Webhook signature mismatches
+Existing observability tools show **what failed**, but not **why it failed** or **what should be done next**.
 
-Checkout failures during backend transitions
+AEGIS is designed to bridge that gap.
 
-Raw body vs parsed JSON validation errors
+---
 
-Key rotation and configuration drift
+## What AEGIS Is (and Is Not)
 
-Support tickets appearing after revenue loss
+### AEGIS Is:
+- An autonomous reasoning agent
+- A system that proposes operational mitigations
+- A human-aligned AI assistant for engineers and support teams
+- A continuously running decision loop
 
-Traditional tools can detect errors, but they cannot reason about root cause or next best action.
+### AEGIS Is Not:
+- A chatbot
+- An auto-remediation tool
+- A black-box AI
+- A demo-only prototype
 
-AEGIS fills this gap.
+---
 
-🎯 What the Agent Does
+## How the Agent Operates
 
-Core Purpose
+AEGIS runs a closed-loop operational cycle:
 
-Prevent migration-induced production failures
+**Observe → Reason → Decide → Act → Reflect**
 
-Reduce mean time to resolution (MTTR)
+Each step is explicit, logged, and visible in the UI.
 
-Assist support and engineering teams proactively
+---
 
-Primary Responsibilities
+### Observe
+The agent ingests multiple operational signals, including:
+- Error telemetry and logs
+- Support ticket summaries
+- Documentation search patterns
+- Migration and environment metadata
 
-Observe multi-source operational signals
+No single signal is trusted in isolation.
 
-Diagnose likely root causes with confidence scores
+---
 
-Propose safe, scoped mitigations
+### Reason
+AEGIS correlates signals across sources to:
+- Identify likely failure patterns
+- Generate multiple hypotheses
+- Assign confidence scores
+- Track uncertainty explicitly
 
-Require human authorization before any action
+Reasoning outputs are explainable and inspectable.
 
-Learn from outcomes over time
+---
 
-Role in the System
+### Decide
+Based on confidence and safety constraints, the agent:
+- Selects the lowest-risk mitigation strategies
+- Estimates blast radius (merchant-only vs broader impact)
+- Prioritizes actions conservatively
 
-AEGIS acts as an AI Site Reliability Engineer (AI-SRE) — not a chatbot.
+Decisions are recommendations — not executions.
 
-🧠 How the Agent Thinks (Agent Loop)
+---
 
-AEGIS follows a belief-state reasoning framework:
+### Act (Human-Gated)
+AEGIS never modifies production systems autonomously.
 
-1️⃣ Observe
+Every action:
+- Requires human authorization
+- Is scoped and reversible
+- Is recorded in an audit trail
 
-Ingests structured signals such as:
+This mirrors real enterprise safety requirements.
 
-Telemetry and error logs
+---
 
-Support tickets
+### Reflect
+After an action is approved and executed:
+- Outcomes are observed
+- Belief states are updated
+- Future recommendations improve
 
-Documentation search behavior
+Learning is driven by real outcomes, not synthetic training.
 
-Migration stage metadata
+---
 
-2️⃣ Reason
+## System Overview
 
-Correlates signals across sources
+### Frontend — Agent Console
+The UI acts as a control and transparency layer:
+- Diagnostic conclusions with confidence levels
+- Action queue requiring approval
+- Internal agent reasoning state (read-only)
+- Full lifecycle logs of the agent loop
 
-Forms hypotheses about root cause
+The goal is trust through visibility.
 
-Assigns confidence scores
+---
 
-Identifies known unknowns (uncertainty)
+### Backend — Agent Runtime
+The backend hosts the agent logic:
+- Signal ingestion and normalization
+- Belief state management
+- Reasoning and decision planning
+- Policy enforcement and safety checks
 
-3️⃣ Decide
+The agent can be triggered manually or run continuously.
 
-Selects lowest-risk mitigation strategies
+---
 
-Estimates impact scope (merchant vs global)
+## Design Principles
 
-Prioritizes actions based on confidence and safety
+- **Human-in-the-loop by default**
+- **Explainability over automation**
+- **Safety over aggressiveness**
+- **Operational realism over demos**
 
-4️⃣ Act (Human-Gated)
+AEGIS is intentionally conservative.
 
-Never auto-fixes production systems
+---
 
-Requires explicit human authorization
+## Performance Characteristics
 
-Executes only approved mitigations
+- Event-driven execution (no constant polling)
+- Lightweight reasoning cycles
+- Bounded inference windows
+- Predictable memory and CPU usage
 
-5️⃣ Reflect
+The system is optimized for **decision quality**, not AI token volume.
 
-Evaluates action outcomes
+---
 
-Updates internal belief state
+## Learning and Adaptation
 
-Improves future recommendations
+AEGIS improves using feedback such as:
+- Action approval or rejection
+- Post-mitigation system health
+- Repeated failure patterns across merchants
 
-This loop is fully visible via logs and explainability panels.
+This enables adaptive behavior without unsafe autonomy.
 
-🏗 System Architecture
-Frontend (Agent Console)
+---
 
-Diagnostics view (beliefs + confidence)
+## Running the Project Locally
 
-Action queue with human authorization
+### Requirements
+- Node.js (v18+ recommended)
+- npm
 
-Internal agent state (read-only explainability)
+---
 
-Agent lifecycle logs
-
-Backend (Agent Runtime)
-
-Signal aggregation layer
-
-Reasoning engine
-
-Action planner
-
-Safety & policy guardrails
-
-Reasoning Layer
-
-Structured reasoning (LLM-assisted)
-
-Natural language → belief updates
-
-Explainable inference summaries
-
-⚙️ Performance & Efficiency
-
-Event-driven agent cycles (no constant polling)
-
-Deterministic execution paths
-
-Bounded reasoning windows
-
-Optimized for decision quality, not token volume
-
-The system is designed for operational efficiency, not brute-force AI usage.
-
-🔐 Built for Real Production Systems
-
-Human-in-the-loop by design
-
-No direct autonomous writes to production
-
-Full audit trail for decisions and actions
-
-Safe default behavior under uncertainty
-
-AEGIS is intentionally conservative, reflecting real enterprise constraints.
-
-📈 Learning & Improvement
-
-AEGIS improves through feedback-driven adaptation, including:
-
-Human approval / rejection signals
-
-Mitigation success or failure
-
-Recurring failure pattern recognition
-
-Learning is outcome-aware, not blind retraining.
-
-🚀 How to Run Locally
-Prerequisites
-
-Node.js (v18+ recommended)
-
-npm
-
-Backend
+### Backend
+```bash
 cd backend
 npm install
 npm start
-
-
-Backend runs at:
+Backend runs on:
 
 http://localhost:3001
-
-
 Available endpoints:
 
 /agent/status
@@ -203,33 +191,6 @@ Frontend
 cd frontend
 npm install
 npm run dev
-
-
-Frontend runs at:
+Frontend runs on:
 
 http://localhost:3000
-
-🏆 Hackathon Focus
-
-This project was built for the Advanced Agentic AI Track, emphasizing:
-
-Clear agent loop (observe → reason → decide → act)
-
-Working, code-based system
-
-Explainable decision-making
-
-Human-aligned autonomy
-
-Production-ready architecture
-
-🔑 Key Differentiators
-Typical Hackathon Projects	AEGIS
-Chatbots	Autonomous Agent
-Reactive alerts	Proactive reasoning
-Black-box AI	Explainable decisions
-Answers	Actions
-Demo-only	Production-aligned
-📌 Final Note
-
-AEGIS demonstrates how agentic AI systems can move beyond automation into responsible autonomy, helping teams operate complex systems safely and intelligently.
